@@ -1,26 +1,60 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="main-layout">
+    <div class="header">
+      <router-view v-slot="{ Component, route }">
+        <component :is="Component" v-if="route.path === '/'" />
+      </router-view>
+    </div>
+    <div v-if="$route.path === '/'" class="nav-row">
+      <router-link to="/upload">
+        <button class="nav-btn">업로드</button>
+      </router-link>
+      <router-link to="/admin">
+        <button class="nav-btn">관리자</button>
+      </router-link>
+    </div>
+    <div class="center">
+      <router-view v-slot="{ Component, route }">
+        <component :is="Component" v-if="route.path !== '/'" />
+      </router-view>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  margin-bottom: 2rem;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.nav-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.nav-btn {
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
