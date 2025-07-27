@@ -16,6 +16,7 @@
         placeholder="확장자 입력 (예: jpg)" 
         @keydown="onKeyDown"
         @keyup.enter="addExtension"
+        maxlength="20"
       />
       <button @click="addExtension">추가</button>
     </div>
